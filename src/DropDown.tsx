@@ -5,7 +5,7 @@ import {
   TouchableWithoutFeedback,
   View,
   ViewStyle,
-} from "react-native";
+} from 'react-native';
 import {
   Checkbox,
   Divider,
@@ -13,7 +13,7 @@ import {
   TextInput,
   TouchableRipple,
   useTheme,
-} from "react-native-paper";
+} from 'react-native-paper';
 import React, {
   ReactNode,
   forwardRef,
@@ -21,9 +21,9 @@ import React, {
   useState,
   useCallback,
   Fragment,
-} from "react";
-import { Theme } from "react-native-paper/lib/typescript/types";
-import { TextInputProps } from "react-native-paper/lib/typescript/components/TextInput/TextInput";
+} from 'react';
+import { Theme } from 'react-native-paper/lib/typescript/types';
+import { TextInputProps } from 'react-native-paper/lib/typescript/components/TextInput/TextInput';
 
 type Without<T, K> = Pick<T, Exclude<keyof T, K>>;
 
@@ -36,7 +36,7 @@ export interface DropDownPropsInterface {
   setValue: (_value: any) => void;
   label?: string | undefined;
   placeholder?: string | undefined;
-  mode?: "outlined" | "flat" | undefined;
+  mode?: 'outlined' | 'flat' | undefined;
   inputProps?: TextInputPropsWithoutTheme;
   list: Array<{
     label: string;
@@ -53,9 +53,10 @@ export interface DropDownPropsInterface {
   dropDownItemStyle?: ViewStyle;
   dropDownItemTextStyle?: TextStyle;
   accessibilityLabel?: string;
+  right?: any;
 }
 
-type TextInputPropsWithoutTheme = Without<TextInputProps, "theme">;
+type TextInputPropsWithoutTheme = Without<TextInputProps, 'theme'>;
 
 const DropDown = forwardRef<TouchableWithoutFeedback, DropDownPropsInterface>(
   (props, ref) => {
@@ -82,8 +83,9 @@ const DropDown = forwardRef<TouchableWithoutFeedback, DropDownPropsInterface>(
       dropDownItemTextStyle,
       dropDownItemSelectedTextStyle,
       accessibilityLabel,
+      right,
     } = props;
-    const [displayValue, setDisplayValue] = useState("");
+    const [displayValue, setDisplayValue] = useState('');
     const [inputLayout, setInputLayout] = useState({
       height: 0,
       width: 0,
@@ -100,7 +102,7 @@ const DropDown = forwardRef<TouchableWithoutFeedback, DropDownPropsInterface>(
         const _labels = list
           .filter((_) => value.indexOf(_.value) !== -1)
           .map((_) => _.label)
-          .join(", ");
+          .join(', ');
         setDisplayValue(_labels);
       } else {
         const _label = list.find((_) => _.value === value)?.label;
@@ -125,12 +127,12 @@ const DropDown = forwardRef<TouchableWithoutFeedback, DropDownPropsInterface>(
       (currentValue: any) => {
         if (multiSelect) {
           const valueIndex = value.indexOf(currentValue);
-          const values = value.split(",");
+          const values = value.split(',');
           if (valueIndex === -1) {
-            setValue([...values, currentValue].join(","));
+            setValue([...values, currentValue].join(','));
           } else {
             setValue(
-              [...values].filter((value) => value !== currentValue).join(",")
+              [...values].filter((value) => value !== currentValue).join(',')
             );
           }
         } else {
@@ -152,17 +154,15 @@ const DropDown = forwardRef<TouchableWithoutFeedback, DropDownPropsInterface>(
             onLayout={onLayout}
             accessibilityLabel={accessibilityLabel}
           >
-            <View pointerEvents={"none"}>
+            <View pointerEvents={'none'}>
               <TextInput
                 value={displayValue}
                 mode={mode}
                 label={label}
                 placeholder={placeholder}
-                pointerEvents={"none"}
+                pointerEvents={'none'}
                 theme={theme}
-                right={
-                  <TextInput.Icon name={visible ? "menu-up" : "menu-down"} />
-                }
+                right={right}
                 {...inputProps}
               />
             </View>
@@ -191,8 +191,8 @@ const DropDown = forwardRef<TouchableWithoutFeedback, DropDownPropsInterface>(
             <Fragment key={_item.value}>
               <TouchableRipple
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}
                 onPress={() => {
                   setActive(_item.value);
@@ -225,7 +225,7 @@ const DropDown = forwardRef<TouchableWithoutFeedback, DropDownPropsInterface>(
                       theme={{
                         colors: { accent: activeTheme?.colors.primary },
                       }}
-                      status={isActive(_item.value) ? "checked" : "unchecked"}
+                      status={isActive(_item.value) ? 'checked' : 'unchecked'}
                       onPress={() => setActive(_item.value)}
                     />
                   )}
